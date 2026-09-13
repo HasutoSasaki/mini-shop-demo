@@ -1,0 +1,279 @@
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --text: #1f2933;
+  --muted: #616e7c;
+  --border: #e4e7eb;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  font-family: system-ui, -apple-system, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+  font-size: 16px;
+  color: var(--text);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 64px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.nav {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-link {
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.nav-link:hover {
+  background: var(--bg);
+}
+
+.nav-link.active {
+  color: var(--text);
+  border-color: var(--border);
+  background: var(--bg);
+  font-weight: 600;
+}
+
+.main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px 32px 64px;
+}
+
+.notice {
+  min-height: 28px;
+  margin-bottom: 8px;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.page-title {
+  margin: 0 0 20px;
+  font-size: 24px;
+}
+
+.product-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.product-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.product-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+}
+
+.product-category {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.product-name {
+  margin: 0;
+  font-size: 18px;
+}
+
+.product-price {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.btn {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.btn-link {
+  background: transparent;
+  color: var(--muted);
+  padding: 4px 8px;
+  font-weight: 500;
+}
+
+.btn-link:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.empty p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.cart-table th,
+.cart-table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.cart-table th {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.cart-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.qty button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 16px;
+  line-height: 1;
+}
+
+.qty button:hover {
+  background: var(--bg);
+}
+
+.summary {
+  margin: 24px 0 0 auto;
+  max-width: 360px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.summary div {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+
+.summary dt {
+  color: var(--muted);
+}
+
+.summary dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.summary-total {
+  margin-top: 8px;
+  padding-top: 12px !important;
+  border-top: 1px solid var(--border);
+  font-size: 20px;
+}
+
+.summary-total dt {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
