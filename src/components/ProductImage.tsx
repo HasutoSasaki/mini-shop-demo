@@ -1,15 +1,48 @@
-import type { Product } from '../data/products'
+import {
+  Backpack,
+  Bean,
+  Box,
+  Coffee,
+  CupSoda,
+  Filter,
+  Notebook,
+  Package,
+  Pen,
+  Shirt,
+  ShoppingBag,
+  Tag,
+  type LucideIcon,
+} from 'lucide-react'
+import type { CSSProperties } from 'react'
+import type { Product, ProductIcon } from '../data/products'
 
-type Props = { product: Product }
+const ICONS: Record<ProductIcon, LucideIcon> = {
+  bean: Bean,
+  filter: Filter,
+  coffee: Coffee,
+  cupSoda: CupSoda,
+  notebook: Notebook,
+  pen: Pen,
+  shoppingBag: ShoppingBag,
+  shirt: Shirt,
+  package: Package,
+  box: Box,
+  tag: Tag,
+  backpack: Backpack,
+}
 
-/** 商品画像の代わりに、色付きの枚に商品名を描く */
-export function ProductImage({ product }: Props) {
+type Props = {
+  product: Product
+  size?: 'large' | 'small'
+}
+
+/** 商品写真の代わりに、淡い背景の上にアイコンを描く */
+export function ProductImage({ product, size = 'large' }: Props) {
+  const Icon = ICONS[product.icon]
+  const style = { '--tint': product.color } as CSSProperties
   return (
-    <svg className="product-image" viewBox="0 0 320 200" role="img" aria-label={product.name}>
-      <rect width="320" height="200" rx="12" fill={product.color} />
-      <text x="160" y="108" textAnchor="middle" fontSize="22" fontWeight="600" fill="#ffffff">
-        {product.name}
-      </text>
-    </svg>
+    <div className={`product-image product-image-${size}`} role="img" aria-label={product.name} style={style}>
+      <Icon size={size === 'large' ? 96 : 44} strokeWidth={1.25} color={product.color} aria-hidden="true" />
+    </div>
   )
 }

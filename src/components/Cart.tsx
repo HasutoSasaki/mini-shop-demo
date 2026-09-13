@@ -1,4 +1,7 @@
 import { calcShipping, calcSubtotal, calcTotal, countItems, formatYen, type CartItem } from '../lib/cart'
+import { Price } from './Price'
+import { ProductImage } from './ProductImage'
+import { QuantityControl } from './QuantityControl'
 
 type Props = {
   items: CartItem[]
@@ -9,80 +12,81 @@ type Props = {
 }
 
 export function Cart({ items, onIncrement, onDecrement, onRemove, onBackToProducts }: Props) {
+  const count = countItems(items)
+
   if (items.length === 0) {
     return (
-      <section>
-        <h2 className="page-title">カート</h2>
-        <div className="empty">
-          <p>カートに商品がありません。</p>
-          <button type="button" className="btn btn-primary" onClick={onBackToProducts}>
-            商品一覧へ
-          </button>
-        </div>
+      <section className="cart-panel">
+        <h2 className="cart-title">ショッピングカートに商品はありません。</h2>
+        <p className="cart-empty-text">
+          商品を探してカートに追加してください。
+        </p>
+        <button type="button" className="btn-yellow" onClick={onBackToProducts}>
+          商品一覧へ
+        </button>
       </section>
     )
   }
 
   return (
-    <section>
-      <h2 className="page-title">カート（{countItems(items)}点）</h2>
-      <table className="cart-table">
-        <thead>
-          <tr>
-            <th>商品</th>
-            <th>単価</th>
-            <th>数量</th>
-            <th>小計</th>
-            <th aria-label="操作"></th>
-          </tr>
-        </thead>
-        <tbody>
+    <div className="cart-layout">
+      <section className="cart-panel">
+        <div className="cart-panel-head">
+          <h2 className="cart-title">ショッピングカート</h2>
+          <span className="cart-price-label">価格</span>
+        </div>
+        <ul className="cart-list">
           {items.map(({ product, quantity }) => (
-            <tr key={product.id}>
-              <td>{product.name}</td>
-              <td>{formatYen(product.price)}</td>
-              <td>
-                <div className="qty">
-                  <button type="button" aria-label="数量を減らす" onClick={() => onDecrement(product.id)}>
-                    −
-                  </button>
-                  <span>{quantity}</span>
-                  <button type="button" aria-label="数量を増やす" onClick={() => onIncrement(product.id)}>
-                    ＋
+            <li key={product.id} className="cart-row">
+              <ProductImage product={product} size="small" />
+              <div className="cart-info">
+                <span className="cart-item-name">{product.name}</span>
+                <span className="cart-item-meta">
+                  {product.category}
+                  {product.stock > 0 && <span className="in-stock">在庫あり</span>}
+                </span>
+                <div className="cart-controls">
+                  <QuantityControl
+                    quantity={quantity}
+                    onIncrement={() => onIncrement(product.id)}
+                    onDecrement={() => onDecrement(product.id)}
+                  />
+                  <span className="cart-divider" aria-hidden="true" />
+                  <button type="button" className="link-button" onClick={() => onRemove(product.id)}>
+                    削除
                   </button>
                 </div>
-              </td>
-              <td>{formatYen(product.price * quantity)}</td>
-              <td>
-                <button type="button" className="btn btn-link" onClick={() => onRemove(product.id)}>
-                  削除
-                </button>
-              </td>
-            </tr>
+              </div>
+              <div className="cart-row-price">
+                <Price amount={product.price * quantity} />
+              </div>
+            </li>
           ))}
-        </tbody>
-      </table>
+        </ul>
+        <p className="cart-subtotal-line">
+          小計 ({count}点): <strong>{formatYen(calcSubtotal(items))}</strong>
+        </p>
+      </section>
 
-      <dl className="summary">
-        <div>
-          <dt>小計</dt>
-          <dd>{formatYen(calcSubtotal(items))}</dd>
-        </div>
-        <div>
-          <dt>送料</dt>
-          <dd>{formatYen(calcShipping(items))}</dd>
-        </div>
-        <div className="summary-total">
-          <dt>合計</dt>
-          <dd>{formatYen(calcTotal(items))}</dd>
-        </div>
-      </dl>
-
-      <div className="actions">
-        <button type="button" className="btn btn-secondary" onClick={onBackToProducts}>
-          買い物を続ける
+      <aside className="cart-summary" aria-label="注文内容">
+        <p className="summary-subtotal">
+          小計 ({count}点): <strong>{formatYen(calcSubtotal(items))}</strong>
+        </p>
+        <dl className="summary-rows">
+          <div>
+            <dt>送料</dt>
+            <dd>{formatYen(calcShipping(items))}</dd>
+          </div>
+          <div className="summary-total">
+            <dt>合計</dt>
+            <dd>{formatYen(calcTotal(items))}</dd>
+          </div>
+        </dl>
+        <button type="button" className="btn-yellow btn-block" disabled>
+          レジに進む
         </button>
-      </div>
-    </section>
+        <p className="summary-note">デモのため決済はありません</p>
+      </aside>
+    </div>
   )
 }

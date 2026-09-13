@@ -27,13 +27,19 @@ pnpm build
 
 ```
 src/
-├── App.tsx                 # 画面切り替えとカート状態
+├── App.tsx                 # ヘッダー（検索・カート）、カテゴリ・画面の切り替え、カート状態、フッター
 ├── components/
-│   ├── Cart.tsx            # カート
-│   ├── ProductImage.tsx    # 商品画像の代わり（色付きの枚）
-│   └── ProductList.tsx     # 商品一覧
-├── data/products.ts        # 商品データ（固定配列）
+│   ├── Cart.tsx            # カート（明細 + 注文内容ボックス）
+│   ├── CategoryNav.tsx     # カテゴリのナビバー
+│   ├── Price.tsx           # 金額表示（¥ を小さく）
+│   ├── ProductImage.tsx    # 商品画像の代わり（アイコン）
+│   ├── ProductList.tsx     # 商品一覧（バッジ・ポイント・残り点数つき）
+│   ├── QuantityControl.tsx # 数量の増減（− n ＋）
+│   └── Rating.tsx          # 星評価
+├── data/products.ts        # 商品データ（固定配列、12点）
 └── lib/
     ├── cart.ts             # 金額計算（小計・送料・合計・点数）
-    └── cart.test.ts
+    ├── cart.test.ts
+    ├── catalog.ts          # 絞り込み・ポイント計算
+    └── catalog.test.ts
 ```
