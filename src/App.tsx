@@ -4,7 +4,7 @@ import { Cart } from './components/Cart'
 import { CategoryNav } from './components/CategoryNav'
 import { ProductList } from './components/ProductList'
 import { PRODUCTS, type Product } from './data/products'
-import type { CartItem } from './lib/cart'
+import { countItems, type CartItem } from './lib/cart'
 import { filterProducts, type CategoryFilter } from './lib/catalog'
 
 type View = 'products' | 'cart'
@@ -31,6 +31,7 @@ export default function App() {
   const visibleProducts = filterProducts(PRODUCTS, category, keyword)
   const listTitle = keyword ? `「${keyword}」の検索結果` : category === 'all' ? 'すべての商品' : category
   const quantities = Object.fromEntries(items.map((item) => [item.product.id, item.quantity]))
+  const cartCount = countItems(items)
 
   const showProducts = (next: CategoryFilter) => {
     setCategory(next)
@@ -106,7 +107,10 @@ export default function App() {
           className={view === 'cart' ? 'cart-link active' : 'cart-link'}
           onClick={() => setView('cart')}
         >
-          <ShoppingCart size={30} aria-hidden="true" />
+          <span className="cart-icon">
+            <ShoppingCart size={30} aria-hidden="true" />
+            {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+          </span>
           <span>カート</span>
         </button>
       </header>

@@ -159,6 +159,27 @@ input:focus-visible {
   border-color: var(--header-hover);
 }
 
+.cart-icon {
+  position: relative;
+  display: inline-flex;
+}
+
+.cart-count {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: var(--yellow);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+}
+
 /* カテゴリナビ */
 .category-nav {
   position: sticky;

@@ -36,6 +36,10 @@ describe('calcTotal', () => {
 })
 
 describe('countItems', () => {
+  it('カートが空のとき 0 を返す', () => {
+    expect(countItems([])).toBe(0)
+  })
+
   it('数量の合計を返す', () => {
     const items: CartItem[] = [
       { product: coffee, quantity: 2 },
