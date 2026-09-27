@@ -25,5 +25,5 @@ export function countItems(items: CartItem[]): number {
 }
 
 export function formatYen(amount: number): string {
-  return `${amount.toLocaleString('ja-JP')}円`
+  return `¥${amount.toLocaleString('ja-JP')}`
 }
