@@ -17,6 +17,7 @@
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(gh issue view:*)",
+      "Bash(gh repo view:*)",
       "Bash(gh pr create:*)",
       "Bash(gh pr view:*)",
       "Bash(mkdir:*)",

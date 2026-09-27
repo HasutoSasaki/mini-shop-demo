@@ -29,18 +29,22 @@ Vite + React + TypeScript、テストは Vitest、パッケージマネージャ
 2. `main` からブランチ `feat/issue-<番号>-<短い英語名>` を作る
 3. 実装する。計算や判定のロジックは `src/lib/cart.ts` に置き、必ずテストを追加する
 4. `pnpm test` と `pnpm build` を通す
-5. ブラウザで動作確認し、証拠（スクリーンショットか GIF）を残す
+5. **ブラウザで画面を開いて実際に操作し**、証拠（スクリーンショットか GIF）を残す。テストが通っただけでは動作確認にならない
 6. commit → push → `gh pr create`
 
 ## ブラウザでの動作確認
 
-- 開発サーバーは起動済みのことが多い。まず http://localhost:5173 を開く。開けなければ `pnpm dev` をバックグラウンドで起動する
-- Chrome 拡張（Claude in Chrome）で実際に操作して確認する。例: 商品を「カートに入れる」→ ヘッダーの「カート」を押す → 表示を確認する
-- 証拠の残し方
-  - GIF: `gif_creator` で `start_recording` → 操作 → `stop_recording` → `export`（`download: true`、`filename` は `issue-<番号>.gif`）。Chrome のダウンロード先（通常 `~/Downloads`）に保存されるので、`docs/screenshots/` に移す
-  - 静止画で十分なときは、GIF の代わりに `upload_image` で PR 画面の本文欄に直接ドロップしてもよい
+**テストが通ることと、画面が正しく動くことは別**。テストだけで済ませず、必ず画面を開いて操作すること。
+
+- 使うのは **デスクトップアプリ内蔵の Browser ペイン**（`Cmd+Shift+B` / `Ctrl+Shift+B` で開く）
+- 開発サーバーは起動済みのことが多い。まず http://localhost:5173 を開く。開けなければ `pnpm dev` を起動する
+- **画面を見るだけでは不十分。実際にクリックや入力をして、表示が変わることを確かめる**
+  例（issue #2 の場合）: 商品を何個かカートに入れる → カート画面を開く → 5,000 円未満で「あと○円」が出ることを確認 → さらに追加して 5,000 円を超え、「送料無料」に変わることを確認
+- 確認できたら、その画面のスクリーンショットを撮って `docs/screenshots/issue-<番号>.png` に保存する
+  （GIF で残す場合は `issue-<番号>.gif`）
 - 証拠ファイルはブランチに commit し、PR 本文からは次の形式の URL で参照する（相対パスは PR 本文では表示されない）
-  `https://github.com/HasutoSasaki/mini-shop-demo/blob/<ブランチ名>/docs/screenshots/<ファイル名>?raw=true`
+  `https://github.com/<owner>/<repo>/blob/<ブランチ名>/docs/screenshots/<ファイル名>?raw=true`
+  （`<owner>/<repo>` は `gh repo view --json nameWithOwner -q .nameWithOwner` で確認する）
 
 ## PR の書き方
 
