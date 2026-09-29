@@ -1,17 +1,25 @@
 #!/usr/bin/env bash
-# テンプレートから日付付きのデモ用リポジトリを作り、issue を登録して手元に取得する。
-# 使い方: scripts/new-demo-repo.sh [YYYYMMDD]   （省略時は今日の日付）
+# デモ用リポジトリを 1 本だけ用意する。
+# 前回のデモ用リポジトリ（GitHub・手元・Claude Code の記録・開発サーバー）を全部消してから、
+# テンプレートから mini-shop-demo-live を作り直し、issue を登録して手元に取得する。
+# 毎回作り直すので、issue 番号は必ず #1 から始まる。
+#
+# 使い方: scripts/new-demo-repo.sh
 set -euo pipefail
 
 TEMPLATE="HasutoSasaki/mini-shop-demo"
+LIVE_NAME="mini-shop-demo-live"
 ISSUES=(1 2 3)
 
-date_suffix="${1:-$(date +%Y%m%d)}"
+script_dir="$(cd "$(dirname "$0")" && pwd)"
 owner="$(gh api user -q .login)"
-repo="${owner}/mini-shop-demo-${date_suffix}"
+repo="${owner}/${LIVE_NAME}"
+
+# 前回分をすべて消す（確認の入力あり）
+"${script_dir}/cleanup-demo-repos.sh" --yes
 
 if gh repo view "$repo" >/dev/null 2>&1; then
-  echo "既に存在します: $repo" >&2
+  echo "まだ残っています: $repo" >&2
   exit 1
 fi
 
