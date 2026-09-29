@@ -29,7 +29,7 @@ Vite + React + TypeScript、テストは Vitest、パッケージマネージャ
 2. `main` からブランチ `feat/issue-<番号>-<短い英語名>` を作る
 3. 実装する。計算や判定のロジックは `src/lib/cart.ts` に置き、必ずテストを追加する
 4. `pnpm test` と `pnpm build` を通す
-5. **ブラウザで画面を開いて実際に操作し**、証拠（スクリーンショットか GIF）を残す。テストが通っただけでは動作確認にならない
+5. **ブラウザで画面を開いて実際に操作し**、証拠（スクリーンショット）を残す。テストが通っただけでは動作確認にならない
 6. commit → push → `gh pr create`
 
 ## ブラウザでの動作確認
@@ -41,7 +41,6 @@ Vite + React + TypeScript、テストは Vitest、パッケージマネージャ
 - **画面を見るだけでは不十分。実際にクリックや入力をして、表示が変わることを確かめる**
   例（issue #2 の場合）: 商品を何個かカートに入れる → カート画面を開く → 5,000 円未満で「あと○円」が出ることを確認 → さらに追加して 5,000 円を超え、「送料無料」に変わることを確認
 - 確認できたら、その画面のスクリーンショットを撮って `docs/screenshots/issue-<番号>.png` に保存する
-  （GIF で残す場合は `issue-<番号>.gif`）
 - 証拠ファイルはブランチに commit し、PR 本文からは次の形式の URL で参照する（相対パスは PR 本文では表示されない）
   `https://github.com/<owner>/<repo>/blob/<ブランチ名>/docs/screenshots/<ファイル名>?raw=true`
   （`<owner>/<repo>` は `gh repo view --json nameWithOwner -q .nameWithOwner` で確認する）
@@ -49,7 +48,7 @@ Vite + React + TypeScript、テストは Vitest、パッケージマネージャ
 ## PR の書き方
 
 - タイトル: `feat: <変更内容>（#<issue 番号>）`
-- 本文は `.github/pull_request_template.md` の形式。「動作確認」にスクリーンショットか GIF を必ず貼る
+- 本文は `.github/pull_request_template.md` の形式。「動作確認」にスクリーンショットを必ず貼る
 - 本文末尾に `Closes #<issue 番号>`
 
 ## 規約
